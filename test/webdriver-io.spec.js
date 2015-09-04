@@ -49,8 +49,7 @@ describe("webdriverio spec", function() {
     });
 
     it("this is a failing test for example purposes", function() {
-        return webdriver.waitForVisible(".non-existing-element")
-            .catch(convertToAssertion);
+        return webdriver.waitForVisible(".non-existing-element");
     });
 
     afterEach("take screenshot on failure", function() {
