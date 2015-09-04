@@ -10,7 +10,7 @@ function convertToAssertion(e) {
 }
 
 describe("webdriverio spec", function() {
-    var webdriver;
+    var webdriver, setQuery;
     function screenshot(name) {
         return webdriver.screenshot().then(function(res) {
             allure.createAttachment(name, function() {
@@ -27,19 +27,23 @@ describe("webdriverio spec", function() {
         return webdriver.init().url(config.testHost);
     });
 
+    beforeEach(function() {
+        setQuery = allure.createStep("type search query '{0}'", function(query) {
+            return webdriver.setValue(mainPage.search.input, query);
+        });
+    });
+
     it("should open page", function() {
         return webdriver.waitForVisible(mainPage.search.input);
     });
 
     it("should show suggest", function() {
-        return webdriver.setValue(mainPage.search.input, "allure-frame")
-            .waitForVisible(mainPage.suggest.selector, 3000)
+        return setQuery("allure-frame").waitForVisible(mainPage.suggest.selector, 3000)
             .catch(convertToAssertion);
     });
 
     it("should open search result page", function() {
-        return webdriver.setValue(mainPage.search.input, "allure-framework")
-            .click(mainPage.search.submitButton)
+        return setQuery("allure-framework").click(mainPage.search.submitButton)
             .waitUntil(function() {
                 return this.getTitle().then(function(title) {
                     return title.indexOf("allure-framework") === 0;
