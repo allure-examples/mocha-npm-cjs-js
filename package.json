@@ -1,0 +1,35 @@
+{
+  "name": "mocha-allure-example",
+  "version": "1.0.0",
+  "description": "Example of Selenium tests with Mocha and Allure report",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "clean": "rm -rf allure-results",
+    "pretest": "npm run clean",
+    "test": "multi='progress=- mocha-allure-reporter=-' mocha",
+    "report": "allure generate allure-results -o allure-report && allure report open -o allure-report"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/allure-framework/mocha-allure-example.git"
+  },
+  "author": "",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/allure-framework/mocha-allure-example/issues"
+  },
+  "homepage": "https://github.com/allure-framework/mocha-allure-example#readme",
+  "devDependencies": {
+    "chai": "^3.2.0",
+    "chai-as-promised": "^5.1.0",
+    "dirty-chai": "^1.2.2",
+    "mocha": "^2.3.0",
+    "mocha-allure-reporter": "^1.1.2",
+    "mocha-multi": "^0.7.1",
+    "webdriver-http-sync": "^1.1.0",
+    "webdriverio": "^3.2.1"
+  }
+}
