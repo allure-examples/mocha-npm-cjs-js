@@ -24,9 +24,9 @@ describe("webdriver-http-sync spec", function() {
             var input = webdriver.getElement(mainPage.search.input);
             input.type(query);
         });
-        screenshot = allure.createAttachment("{0}", function() {
-            return new Buffer(webdriver.getScreenshot(), "base64");
-        }, "image/png");
+        screenshot = allure.createStep("save", function(name) {
+            allure.createAttachment(name, new Buffer(webdriver.getScreenshot(), "base64"));
+        });
     });
 
     it("should open page", function() {

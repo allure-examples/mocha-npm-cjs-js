@@ -10,14 +10,7 @@ function convertToAssertion(e) {
 }
 
 describe("webdriverio spec", function() {
-    var webdriver, setQuery;
-    function screenshot(name) {
-        return webdriver.screenshot().then(function(res) {
-            allure.createAttachment(name, function() {
-                return new Buffer(res.value, "base64");
-            }, "image/png")();
-        });
-    }
+    var webdriver, setQuery, screenshot;
 
     beforeEach(function() {
         webdriver = webdriverio.remote({
@@ -30,6 +23,11 @@ describe("webdriverio spec", function() {
     beforeEach(function() {
         setQuery = allure.createStep("type search query '{0}'", function(query) {
             return webdriver.setValue(mainPage.search.input, query);
+        });
+        screenshot = allure.createStep("save", function(name) {
+            return webdriver.screenshot().then(function(res) {
+                allure.createAttachment(name, new Buffer(res.value, "base64"));
+            });
         });
     });
 
