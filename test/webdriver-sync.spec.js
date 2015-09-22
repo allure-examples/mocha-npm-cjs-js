@@ -34,6 +34,8 @@ describe("webdriver-http-sync spec", function() {
     });
 
     it("should show suggest", function() {
+        allure.feature('suggest');
+        allure.story('show');
         setQuery("allure-frame");
         expect(webdriver.getElement(mainPage.suggest.selector).isVisible()).to.be.ok();
         expect(webdriver.getElements(mainPage.suggest.items)).to.have.length.of.at.least(1);
@@ -45,7 +47,9 @@ describe("webdriver-http-sync spec", function() {
         expect(webdriver.getPageTitle()).to.startsWith("allure-framework");
     });
 
-    it("this is a failing test for example purposes", function() {
+    it("failing test", function() {
+        allure.feature('fail');
+        allure.description('this test should be failed for example purposes');
         expect(webdriver.getElement(".non-existing-element").isVisible()).to.be.ok();
     });
 

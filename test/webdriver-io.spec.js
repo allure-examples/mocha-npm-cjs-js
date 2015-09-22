@@ -36,6 +36,8 @@ describe("webdriverio spec", function() {
     });
 
     it("should show suggest", function() {
+        allure.feature('suggest');
+        allure.story('show');
         return setQuery("allure-frame").waitForVisible(mainPage.suggest.selector, 3000)
             .catch(convertToAssertion);
     });
@@ -50,7 +52,9 @@ describe("webdriverio spec", function() {
             .catch(convertToAssertion);
     });
 
-    it("this is a failing test for example purposes", function() {
+    it("failing test", function() {
+        allure.feature('fail');
+        allure.description('this test should be failed for example purposes');
         return webdriver.waitForVisible(".non-existing-element");
     });
 
