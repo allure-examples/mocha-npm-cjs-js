@@ -29,7 +29,7 @@
     "dirty-chai": "^1.2.2",
     "mocha": "^2.3.0",
     "mocha-allure-reporter": "^1.2.0",
-    "mocha-multi": "just-boris/mocha-multi#master",
+    "mocha-multi": "^0.7.2",
     "webdriver-http-sync": "^1.1.0",
     "webdriverio": "^3.2.1"
   }
