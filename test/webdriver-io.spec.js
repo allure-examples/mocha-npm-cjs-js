@@ -13,6 +13,8 @@ describe("webdriverio spec", function() {
     var webdriver, setQuery, screenshot;
 
     beforeEach(function() {
+        allure.addArgument("capabilities", JSON.stringify(config.capabilities));
+        allure.addEnvironment("host", config.testHost);
         webdriver = webdriverio.remote({
             desiredCapabilities: config.capabilities,
             host: config.seleniumHost
