@@ -34,6 +34,7 @@ describe("webdriverio spec", function() {
     });
 
     it("should open page", function() {
+        allure.description('[Link to test page]('+config.testHost+')', 'markdown');
         return webdriver.waitForVisible(mainPage.search.input);
     });
 
