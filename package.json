@@ -7,9 +7,11 @@
     "test": "test"
   },
   "scripts": {
-    "clean": "rm -rf allure-results",
-    "pretest": "npm run clean",
-    "test": "multi='progress=- mocha-allure-reporter=-' mocha",
+    "postinstall": "selenium-standalone install",
+    "pretest": "rm -rf allure-results",
+    "test": "npm-run-all -r -p test:*",
+    "test:selenium": "selenium-standalone start",
+    "test:mocha": "sleep 1 && multi='progress=- mocha-allure-reporter=-' mocha",
     "report": "allure generate allure-results -o allure-report && allure report open -o allure-report"
   },
   "repository": {
@@ -23,7 +25,7 @@
   },
   "homepage": "https://github.com/allure-framework/mocha-allure-example#readme",
   "devDependencies": {
-    "allure-commandline": "^1.4.22-1",
+    "allure-commandline": "^1.5.0",
     "chai": "^3.2.0",
     "chai-as-promised": "^5.1.0",
     "chai-string": "^1.1.2",
@@ -31,7 +33,8 @@
     "mocha": "^2.3.0",
     "mocha-allure-reporter": "^1.2.0",
     "mocha-multi": "^0.7.2",
-    "webdriver-http-sync": "^1.1.0",
+    "npm-run-all": "^4.0.2",
+    "selenium-standalone": "^6.2.0",
     "webdriverio": "^3.2.1"
   }
 }
