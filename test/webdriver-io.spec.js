@@ -1,74 +1,75 @@
 "use strict";
-/*global allure*/
-var webdriverio = require("webdriverio");
-var config = require("../config");
-var mainPage = require("../pages/main");
+const { expect } = require("chai");
+const config = require("../util/config");
+const describeWithBrowser = require("../util/browser");
+const { OrganizationPage, ProjectPage } = require("../pages");
+let browser;
 
-function convertToAssertion(e) {
-    e.name = "AssertionError";
-    throw e;
-}
-
-describe("webdriverio spec", function() {
-    var webdriver, setQuery, screenshot;
-
-    beforeEach(function() {
-        allure.addArgument("capabilities", JSON.stringify(config.capabilities));
-        allure.addEnvironment("host", config.testHost);
-        webdriver = webdriverio.remote({
-            desiredCapabilities: config.capabilities,
-            host: config.seleniumHost
-        });
-        return webdriver.init().url(config.testHost);
+describeWithBrowser(
+  "webdriver test demo",
+  b => (browser = b),
+  () => {
+    const screenshot = allure.createStep("saveScreenshot", async name => {
+      const res = await browser.screenshot();
+      allure.createAttachment(name, new Buffer(res.value, "base64"));
     });
 
-    beforeEach(function() {
-        setQuery = allure.createStep("type search query '{0}'", function(query) {
-            return webdriver.setValue(mainPage.search.input, query);
-        });
-        screenshot = allure.createStep("save", function(name) {
-            return webdriver.screenshot().then(function(res) {
-                allure.createAttachment(name, new Buffer(res.value, "base64"));
-            });
-        });
+    describe("organization", () => {
+      let page;
+      beforeEach(async () => {
+        const pageUrl = config.site.organization("webdriverio");
+        page = new OrganizationPage(browser);
+        await browser.url(pageUrl);
+        allure.addArgument("pageUrl", pageUrl);
+      });
+
+      it("first page", async () => {
+        await browser.waitForVisible(page.repositiory);
+        const count = await page.repositoriesCount();
+        expect(count).to.equal(30);
+      });
+
+      it("pagination", async () => {
+        allure.feature("pagination");
+        await page.selectPage("2");
+        await browser.waitForVisible(page.repositiory, 3000);
+
+        const count = await page.repositoriesCount();
+        expect(count).to.be.above(1);
+      });
     });
 
-    it("should open page", function() {
-        allure.description('[Link to test page]('+config.testHost+')', 'markdown');
-        return webdriver.waitForVisible(mainPage.search.input);
-    });
+    describe("project", () => {
+      let page;
+      beforeEach(async () => {
+        const pageUrl = config.site.project("webdriverio", "webdriverio");
+        page = new ProjectPage(browser);
+        await browser.url(pageUrl);
+        allure.addArgument("pageUrl", pageUrl);
+      });
 
-    it("should show suggest", function() {
-        allure.feature('suggest');
-        allure.story('show');
-        return setQuery("allure-frame").waitForVisible(mainPage.suggest.selector, 3000)
-            .catch(convertToAssertion);
-    });
+      it("page", async () => {
+        await browser.waitForVisible(page.readme);
+      });
 
-    it("should open search result page", function() {
-        return setQuery("allure-framework").click(mainPage.search.submitButton)
-            .waitUntil(function() {
-                return this.getTitle().then(function(title) {
-                    return title.indexOf("allure-framework") === 0;
-                });
-            }, 3000)
-            .catch(convertToAssertion);
-    });
+      it("file view", async () => {
+        await page.selectFile("index.js");
+        await browser.waitForVisible(page.fileContent, 5000);
+        await browser.scroll(0, 200);
+        await screenshot("file content");
+      });
 
-    it("failing test", function() {
-        allure.feature('fail');
-        allure.description('this test should be failed for example purposes');
-        return webdriver.waitForVisible(".non-existing-element");
+      it("failing test", () => {
+        allure.feature("fail");
+        allure.description("this test should be failed for example purposes");
+        return browser.waitForVisible(".non-existing-element");
+      });
     });
 
     afterEach("take screenshot on failure", function() {
-        if(this.currentTest.state !== "passed") {
-            return screenshot("screenshot on fail");
-        }
+      if (this.currentTest.state !== "passed") {
+        return screenshot("screenshot on fail");
+      }
     });
-
-    afterEach(function() {
-        return webdriver.end();
-    });
-
-});
+  }
+);

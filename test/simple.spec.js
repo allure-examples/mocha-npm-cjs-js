@@ -1,29 +1,27 @@
-var expect = require('chai').expect;
+const { expect } = require("chai");
+// Workaround for https://github.com/allure-framework/allure-mocha/issues/28
+// Enforce allure object to be exposed. If you want to use `allure` outside of before/beforeEach
+// sections, you will have to import reporter here directly
+require("mocha-allure-reporter");
 
-describe('simple test suite', function() {
-  var testStep, stepToBreak;
+describe("simple test demo", () => {
+  const testStep = allure.createStep("initial", () => {
+    // do something
+  });
+  const stepToBreak = allure.createStep("break test", () => {
+    throw new Error("Make test broken");
+  });
 
-  before(function() {
-    testStep = allure.createStep('initial', function() {
-      // do something
-    });
-
-    stepToBreak = allure.createStep('break test', function() {
-      throw new Error('Make test broken');
-    });
-  })
-
-
-  it('simple passed test', function() {
+  it("simple passed test", () => {
     testStep();
   });
 
-  it('test with step', function() {
+  it("test with step", () => {
     testStep();
     stepToBreak();
   });
 
-  it('failed test', function() {
+  it("failed test", () => {
     expect(false).to.equal(true);
   });
 });
