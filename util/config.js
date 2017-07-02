@@ -1,5 +1,11 @@
 const testHost = process.env.testHost || "https://github.com";
 
+// An abstraction on top of our host. Instead of crafting urls directly every time,
+// we can call this convenient class:
+//
+//  const site = new TestSite('http://github.com');
+//  site.organization('test') // will return organization URL
+//
 class TestSite {
   constructor(baseUrl) {
     this.baseUrl = baseUrl;
@@ -15,8 +21,9 @@ class TestSite {
 }
 
 module.exports = {
-  testHost,
+  // page url builder for our test site
   site: new TestSite(testHost),
+  // configuration object for Selenium
   selenium: {
     host: process.env.selenium || "localhost",
     desiredCapabilities: {
