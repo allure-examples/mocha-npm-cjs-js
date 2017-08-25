@@ -26,10 +26,10 @@ describe("simple test demo", () => {
 
   it("test with step", () => {
     testStep();
-    stepToBreak();
+    // stepToBreak();
   });
 
-  it("failed test", () => {
-    expect(false).to.equal(true);
-  });
+  // it("failed test", () => {
+  //   expect(false).to.equal(true);
+  // });
 });

@@ -83,17 +83,17 @@ describeWithBrowser(
       // WARN: this test SHOULD fail
       // In order to show an example of test failures in report, we have added a test,
       // that fails in 100% times
-      it("failing test", () => {
-        allure.feature("fail");
-        // If the test name is not enough to desribe your test, you can also provide
-        // a desription in this way. Markdown is also supported, if you enable this
-        // via second argument
-        allure.description(
-          "this test should be **failed** for example purposes",
-          "markdown"
-        );
-        return browser.waitForVisible(".non-existing-element");
-      });
+      // it("failing test", () => {
+      //   allure.feature("fail");
+      //   // If the test name is not enough to desribe your test, you can also provide
+      //   // a desription in this way. Markdown is also supported, if you enable this
+      //   // via second argument
+      //   allure.description(
+      //     "this test should be **failed** for example purposes",
+      //     "markdown"
+      //   );
+      //   return browser.waitForVisible(".non-existing-element");
+      // });
     });
 
     // This code will be executed after every test. We can provde extra info to the report,
