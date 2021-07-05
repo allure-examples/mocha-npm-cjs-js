@@ -27,7 +27,7 @@
   "devDependencies": {
     "allure-commandline": "^2.0.0",
     "chai": "^4.0.2",
-    "mocha": "^3.3.0",
+    "mocha": "^9.0.2",
     "mocha-allure-reporter": "^1.2.0",
     "mocha-multi": "^0.11.0",
     "npm-run-all": "^4.0.2",
