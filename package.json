@@ -1,37 +1,14 @@
 {
-  "name": "mocha-allure-example",
+  "name": "mocha-npm-cjs-js",
+  "private": true,
   "version": "1.0.0",
-  "description": "Example of Selenium tests with Mocha and Allure report",
-  "main": "index.js",
-  "directories": {
-    "test": "test"
-  },
   "scripts": {
-    "postinstall": "selenium-standalone install",
-    "pretest": "rm -rf allure-results",
-    "test": "npm-run-all -r -p test:*",
-    "test:selenium": "selenium-standalone start",
-    "test:mocha": "sleep 1 && multi='progress=- mocha-allure-reporter=-' mocha",
-    "report": "allure generate allure-results --clean -o allure-report && allure open allure-report"
+    "test": "node ./test/runner.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/allure-framework/mocha-allure-example.git"
-  },
-  "author": "",
-  "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/allure-framework/mocha-allure-example/issues"
-  },
-  "homepage": "https://github.com/allure-framework/mocha-allure-example#readme",
   "devDependencies": {
-    "allure-commandline": "^2.0.0",
-    "chai": "^4.0.2",
-    "mocha": "^3.3.0",
-    "mocha-allure-reporter": "^1.2.0",
-    "mocha-multi": "^0.11.0",
-    "npm-run-all": "^4.0.2",
-    "selenium-standalone": "^6.2.0",
-    "webdriverio": "^4.8.0"
+    "allure-js-commons": "^3.0.2",
+    "allure-mocha": "^3.0.2",
+    "glob": "^11.0.0",
+    "mocha": "^10.7.3"
   }
 }

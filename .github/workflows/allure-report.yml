@@ -1,0 +1,55 @@
+name: Allure Report
+run-name: ${{ github.actor }} is creating Allure report 🚀
+
+on:
+  push:
+    branches-ignore:
+      - '!main'
+
+permissions: write-all
+
+jobs:
+  autotests:
+    name: Run tests and generate Allure Report 
+    runs-on: ubuntu-latest
+
+    steps:
+
+
+      - name: Clone repository
+        uses: actions/checkout@
+
+      - name: Set up Node 20
+        uses: actions/setup-node@
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install npm
+        run: npm install
+
+      - run: npm test
+        continue-on-error: true
+
+      - name: Setup Allure History
+        uses: actions/checkout@
+        if: always()
+        continue-on-error: true
+        with:
+          ref: gh-pages
+          path: gh-pages
+
+      - name: Generate Allure Report
+        uses: simple-elf/allure-report-action@
+        if: always()
+        with:
+          allure_results: allure-results
+          allure_history: allure-history
+
+      - name: Publish Allure Report
+        if: always()
+        uses: peaceiris/actions-gh-pages@
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: allure-history
