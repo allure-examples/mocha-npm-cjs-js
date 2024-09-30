@@ -17,10 +17,10 @@ jobs:
 
 
       - name: Clone repository
-        uses: actions/checkout@
+        uses: actions/checkout@v4.2.0
 
       - name: Set up Node 20
-        uses: actions/setup-node@
+        uses: actions/setup-node@v4.0.4
         with:
           node-version: 20
           cache: npm
@@ -32,7 +32,7 @@ jobs:
         continue-on-error: true
 
       - name: Setup Allure History
-        uses: actions/checkout@
+        uses: actions/checkout@v4.2.0
         if: always()
         continue-on-error: true
         with:
@@ -40,7 +40,7 @@ jobs:
           path: gh-pages
 
       - name: Generate Allure Report
-        uses: simple-elf/allure-report-action@
+        uses: simple-elf/allure-report-action@v1.9
         if: always()
         with:
           allure_results: allure-results
@@ -48,7 +48,7 @@ jobs:
 
       - name: Publish Allure Report
         if: always()
-        uses: peaceiris/actions-gh-pages@
+        uses: peaceiris/actions-gh-pages@v4.0.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
