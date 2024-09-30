@@ -43,7 +43,7 @@ jobs:
         uses: simple-elf/allure-report-action@v1.9
         if: always()
         with:
-          allure_results: allure-results
+          allure_results: ./out/allure-results
           allure_history: allure-history
 
       - name: Publish Allure Report
