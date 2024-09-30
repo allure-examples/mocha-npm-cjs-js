@@ -1,0 +1,1 @@
+{"898fbadffb4a6faddc630d2c159995ae:d41d8cd98f00b204e9800998ecf8427e":{"statistic":{"failed":0,"broken":0,"skipped":0,"passed":1,"unknown":0,"total":1},"items":[{"uid":"799acd52a204b023","reportUrl":"https://allure-examples.github.io/mocha-npm-cjs-js/3//#testresult/799acd52a204b023","status":"passed","time":{"start":1727699755136,"stop":1727699755140,"duration":4}}]}}
