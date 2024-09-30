@@ -3,12 +3,11 @@
   "private": true,
   "version": "1.0.0",
   "scripts": {
-    "test": "node ./test/runner.js"
+    "test": "mocha --parallel"
   },
   "devDependencies": {
     "allure-js-commons": "^3.0.3",
     "allure-mocha": "^3.0.3",
-    "glob": "^11.0.0",
     "mocha": "^10.7.3"
   }
 }
