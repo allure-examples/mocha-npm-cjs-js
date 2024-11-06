@@ -17,10 +17,10 @@ jobs:
 
 
       - name: Clone repository
-        uses: actions/checkout@v4.2.0
+        uses: actions/checkout@v4.2.2
 
       - name: Set up Node 20
-        uses: actions/setup-node@v4.0.4
+        uses: actions/setup-node@v4.1.0
         with:
           node-version: 20
           cache: npm
@@ -32,7 +32,7 @@ jobs:
         continue-on-error: true
 
       - name: Setup Allure History
-        uses: actions/checkout@v4.2.0
+        uses: actions/checkout@v4.2.2
         if: always()
         continue-on-error: true
         with:
@@ -40,7 +40,7 @@ jobs:
           path: gh-pages
 
       - name: Generate Allure Report
-        uses: simple-elf/allure-report-action@v1.9
+        uses: simple-elf/allure-report-action@v1.11
         if: always()
         with:
           allure_results: ./out/allure-results

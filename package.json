@@ -6,8 +6,8 @@
     "test": "mocha --parallel"
   },
   "devDependencies": {
-    "allure-js-commons": "^3.0.3",
-    "allure-mocha": "^3.0.3",
-    "mocha": "^10.7.3"
+    "allure-js-commons": "^3.0.6",
+    "allure-mocha": "^3.0.6",
+    "mocha": "^10.8.2"
   }
 }
